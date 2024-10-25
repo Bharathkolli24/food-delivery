@@ -82,6 +82,9 @@
     cursor: pointer;
 }
 @media (max-width:750px){
+    .cart-items-item img{
+        width: 40px;
+    }
     .cart-bottom{
         flex-direction: column-reverse;
     }
