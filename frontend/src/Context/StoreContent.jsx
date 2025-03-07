@@ -8,7 +8,7 @@ const StoreContextProvider = (props) => {
     const url = 'https://food-delivery-backend-bkny.onrender.com'
     const [token,setToken] = useState("")
     const [food_list,setFoodList] = useState([])
-
+    const [isLoading, setIsLoading] = useState(true);
 
     //functionality for add to cart
     const addToCart = async (itemId) => {
@@ -42,8 +42,15 @@ const StoreContextProvider = (props) => {
         return totalAmount;
     }
     const fetchFoodList = async () => {
-        const response = await axios.get(url+'/api/food/list')
-        setFoodList(response.data.data)
+        try {
+            setIsLoading(true);
+            const response = await axios.get(url+'/api/food/list')
+            setFoodList(response.data.data)
+        } catch (error) {
+            console.error("Error fetching food items:", error);
+        } finally {
+            setIsLoading(false);
+        }
     }
     const loadCartData = async (token) => {                // this function is for not to lost cartData(item quantity) after reloading the page
         const response = await axios.post(url+'/api/cart/get',{},{headers:{token}})
@@ -70,7 +77,8 @@ const StoreContextProvider = (props) => {
         getTotalCartAmount,
         url,
         token,
-        setToken
+        setToken,
+        isLoading
     }
     return (
         <StoreContext.Provider value = {contextValue}>   {/*if we add any element in the object above we can access that element in any component using context   */}
