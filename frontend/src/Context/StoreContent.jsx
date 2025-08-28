@@ -54,7 +54,7 @@ const StoreContextProvider = (props) => {
     }
     const loadCartData = async (token) => {                // this function is for not to lost cartData(item quantity) after reloading the page
         const response = await axios.post(url+'/api/cart/get',{},{headers:{token}})
-        setCartItems(response.data.cartData)
+        setCartItems(response.data.cartData || {})
     }
 
     useEffect(() => {                               //if we didn't write this useEffect arrow function we will get logged out if we reloaded our page 
