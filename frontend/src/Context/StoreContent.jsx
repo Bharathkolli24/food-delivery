@@ -5,7 +5,8 @@ export const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
 
     const [cartItems,setCartItems] = useState({});
-    const url = 'https://food-delivery-backend-bkny.onrender.com'
+    // const url = 'https://food-delivery-backend-bkny.onrender.com'
+    const url = 'http://localhost:4000'
     const [token,setToken] = useState("")
     const [food_list,setFoodList] = useState([])
     const [isLoading, setIsLoading] = useState(true);
@@ -44,10 +45,10 @@ const StoreContextProvider = (props) => {
     const fetchFoodList = async () => {
         try {
             setIsLoading(true);
-            const response = await axios.get(url+'/api/food/list')
+            const response = await axios.get(url+'/api/food/list')  // 48
             setFoodList(response.data.data)
         } catch (error) {
-            console.error("Error fetching food items:", error);
+            console.error("Error fetching food items:", error);   // 51
         } finally {
             setIsLoading(false);
         }
