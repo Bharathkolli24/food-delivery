@@ -14,7 +14,11 @@ const PORT = process.env.PORT || 4000;
 
 // middleware
 app.use(express.json())  //whenever we will get the request from frontend to backend we will be parsing this using this json
-app.use(cors())          //using this we can access backend from any frontend
+// app.use(cors())          //using this we can access backend from any frontend
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true,
+}));
 
 // db connection
 connectDB();
